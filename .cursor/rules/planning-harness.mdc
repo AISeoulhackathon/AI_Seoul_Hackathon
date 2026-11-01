@@ -1,0 +1,9 @@
+---
+description: 해커톤 기획 하네스 공통 규칙
+alwaysApply: true
+---
+
+- 작업 전 `docs/planning/work-plan.md` → `CLAUDE.md` → `docs/README.md` → `docs/hackathon/brief.md` 순서로 읽는다.
+- 정책 정본은 `CLAUDE.md`다. 여기에 복제하지 않는다.
+- 출처 없는 수치·데이터셋을 만들지 않고, 팀 결정 없이 `selected`·`approved`로 바꾸지 않는다.
+- 문서를 바꾸면 `node scripts/harness-check.mjs`를 통과시킨다.
