@@ -1,0 +1,48 @@
+# push가 올라오면 디스코드 채널로 커밋 목록을 보낸다.
+# 웹훅 URL은 저장소 Settings → Secrets and variables → Actions의 DISCORD_WEBHOOK_URL에만 둔다. 커밋하지 않는다.
+name: Discord 커밋 알림
+
+on:
+  push:
+    branches: ["**"]
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 디스코드로 전송
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
+            echo "DISCORD_WEBHOOK_URL 시크릿이 없어 알림을 건너뛴다."
+            exit 0
+          fi
+
+          # 커밋 메시지는 사용자 입력이므로 셸에 넣지 않고 이벤트 JSON에서 jq로만 조립한다.
+          payload=$(jq '
+            def short: .[0:7];
+            def title: (split("\n")[0])[0:100];
+            (.ref | sub("^refs/heads/"; "")) as $branch
+            | (.commits | length) as $n
+            | {
+                username: "커밋 알림",
+                embeds: [{
+                  title: "[\(.repository.name):\($branch)] 커밋 \($n)개",
+                  url: .compare,
+                  color: 5814783,
+                  author: { name: .pusher.name },
+                  description: (
+                    [.commits[-10:][] | "[`\(.id | short)`](\(.url)) \(.message | title) — \(.author.name)"]
+                    | join("\n")
+                    | if $n > 10 then "…외 \($n - 10)개\n" + . else . end
+                    | if . == "" then "(커밋 없음 — 브랜치 생성·삭제 또는 force push)" else . end
+                  )
+                } + (if .head_commit.timestamp then { timestamp: .head_commit.timestamp } else {} end)]
+              }
+          ' "$GITHUB_EVENT_PATH")
+
+          curl -fsS -X POST -H "Content-Type: application/json" -d "$payload" "$DISCORD_WEBHOOK_URL"
