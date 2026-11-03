@@ -14,6 +14,7 @@ const REQUIRED_FILES = [
   "docs/README.md",
   "docs/planning/work-plan.md",
   "docs/hackathon/brief.md",
+  "docs/hackathon/announcement-faq.md",
   "docs/evaluation/rubric.md",
   "docs/ideas/README.md",
   "docs/ideas/_template.md",
@@ -144,8 +145,13 @@ for (const file of cards("research", "RES_")) {
 
 // R-10 MVP 명세
 for (const file of cards("mvp", "MVP_")) {
-  const fm = frontmatter(read(file));
+  const text = read(file);
+  const fm = frontmatter(text);
   const name = basename(file, ".md");
+  // R-11 형식 검사만 수행한다. 실제 준비 경계·제출 충족 여부는 리뷰한다.
+  const checklist = section(text, "대회 준비·제출 체크");
+  if (!checklist || !checklist.trim())
+    fail("R-11", file, "'## 대회 준비·제출 체크'에 사전 준비 경계와 제출물 확인 항목이 필요하다");
   if (!fm || fm.id !== name) {
     fail("R-10", file, "frontmatter id가 파일명과 같아야 한다");
     continue;
