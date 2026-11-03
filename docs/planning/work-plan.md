@@ -82,5 +82,7 @@
 - 사용자 요청으로 [이번 main 직접 푸시 예외](../decisions/20261103-main-push-exception.md)를 기록했다. 기본 PR 정책은 유지한다.
 - 공고·FAQ, 준비·제출 하네스, 마라톤 AI 자동화 방향을 이번 변경으로 보존한다.
 - [추가 제안 8건](../note/20261103-additional-ideation.md)은 미선정 브레인스토밍 메모이며 카드 수에 포함하지 않는다.
-- 원격 main의 3개 커밋(최신 eb1a251), IDEA_10~13 및 IDEA_09 확장을 보존해 병합했다. 전체 카드 13건이며 이번 메모 8건은 별도다. 전송 결과는 실행 후 갱신한다.
+- 원격 main의 3개 커밋(최신 eb1a251), IDEA_10~13 및 IDEA_09 확장을 보존해 병합했다. 전체 카드 13건이며 이번 메모 8건은 별도다. 기획 변경 72ebae4와 병합 49c0b39를 origin/main에 정상 푸시했다 (eb1a251 → 49c0b39).
 - 원격에서 추가된 공고 원문 확인 후보: https://linkareer.com/activity/357358 (이번 작업에서는 웹 원문 미확인).
+
+- 검증: `node scripts/harness-check.mjs` 통과(13건), `node --check scripts/harness-check.mjs` 및 `git diff --check` 통과. 완료 기록은 후속 문서 커밋으로 main에 반영한다.
