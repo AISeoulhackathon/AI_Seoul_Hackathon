@@ -3,7 +3,7 @@
 > 2026 서울AI디지털배움터 청년 AI 해커톤 **기획 저장소**의 최상위 가이드다.
 > Codex는 [AGENTS.md](./AGENTS.md), Cursor는 [.cursor/rules/planning-harness.mdc](./.cursor/rules/planning-harness.mdc)를 통해 이 문서를 참조한다.
 > 상위 디렉터리의 `~/CLAUDE.md`(koreainvestment-gw용 KIS·HANDOFF 규칙)는 이 저장소에 적용하지 않는다. 충돌하면 이 문서를 따른다.
-> 최종 수정: 2026-11-02
+> 최종 수정: 2026-11-04
 
 ## 0. 세션 시작과 종료
 
@@ -95,7 +95,7 @@ docs/pitch/       발표 구성·스크립트
 - 출처 없는 통계·수치·제도·데이터셋 만들기
 - 팀 결정 없이 `selected`·`approved`로 바꾸거나 트랙을 확정하기
 - MVP 명세 `approved` 전 구현 코드 작성
-- 실명·연락처 등 개인정보, 시크릿·토큰 커밋
+- 연락처·메신저 계정 ID·팀 밖 사람의 실명 등 개인정보, 시크릿·토큰 커밋 (팀원 본인의 이름·닉네임은 [decision](./docs/decisions/20261104-team-member-names.md)에 따라 허용)
 - 하네스 규칙 삭제·완화로 검사 통과시키기
 - `main` 직접 push
 
